@@ -1,0 +1,131 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2334249346366729688
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2334249346366729690}
+  - component: {fileID: 2334249346366729691}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2334249346366729690
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2334249346366729688}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2334249346366729691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2334249346366729688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f2f327c5b60496419aa2b497d765015, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: BlockBreak
+    clip: {fileID: 8300000, guid: cc3df6299730412409d3ca23459428ff, type: 3}
+    volume: 1
+    pitch: 3
+    loop: 0
+    isBGM: 0
+    source: {fileID: 0}
+  - name: BlockPlace
+    clip: {fileID: 8300000, guid: cc3df6299730412409d3ca23459428ff, type: 3}
+    volume: 1
+    pitch: 2
+    loop: 0
+    isBGM: 0
+    source: {fileID: 0}
+  - name: BGM1
+    clip: {fileID: 8300000, guid: 3d7c96ef9c0db1f4885b945d85ff3d92, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 1
+    isBGM: 1
+    source: {fileID: 0}
+  - name: BGM2
+    clip: {fileID: 8300000, guid: 724aa0a87bff3f8448c6f9c456b99455, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 1
+    isBGM: 1
+    source: {fileID: 0}
+  - name: BGM3
+    clip: {fileID: 8300000, guid: a42f4af8149dc1f40beb6dea13df9c5b, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 1
+    isBGM: 1
+    source: {fileID: 0}
+  - name: BGM4
+    clip: {fileID: 8300000, guid: 5e48ba01d09555e4f9011c923b10f325, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 1
+    isBGM: 1
+    source: {fileID: 0}
+  - name: BGM5
+    clip: {fileID: 8300000, guid: c2ce02bea31be254f83b206383402452, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 1
+    isBGM: 1
+    source: {fileID: 0}
+  - name: BGM6
+    clip: {fileID: 8300000, guid: d88361b41cc6b194b8cd1727d3828eb6, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 1
+    isBGM: 1
+    source: {fileID: 0}
+  - name: BGM7
+    clip: {fileID: 8300000, guid: a019740305061aa40b88df2bcd198b15, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 1
+    isBGM: 1
+    source: {fileID: 0}
+  - name: BGM8
+    clip: {fileID: 8300000, guid: 250c3d37b797c574586366714b463b33, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 1
+    isBGM: 1
+    source: {fileID: 0}
+  - name: BGM9
+    clip: {fileID: 8300000, guid: 3fd6f129e5211f94d917e1abfe6d8747, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 1
+    isBGM: 1
+    source: {fileID: 0}
+  - name: BGM10
+    clip: {fileID: 8300000, guid: 851880c0d94fe2b47a7401351fcd36e0, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 1
+    isBGM: 1
+    source: {fileID: 0}
+  BGMs: []
