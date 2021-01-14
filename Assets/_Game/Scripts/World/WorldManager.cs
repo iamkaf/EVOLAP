@@ -21,7 +21,9 @@ public class WorldManager : MonoBehaviour
   [SerializeField] Tilemap collisionTilemap;
   [SerializeField] Tilemap glowTilemap;
 
+  [Header("Debugging")]
   [SerializeField] bool debugging;
+  [SerializeField] bool chunkCenter;
 
   private ConcurrentDictionary<Vector2Int, Chunk> chunks;
   private HashSet<Vector2Int> renderedChunks;
@@ -80,7 +82,6 @@ public class WorldManager : MonoBehaviour
   {
     StopCoroutine("RecursiveBuildWorld");
     var playerPosition = WorldGenerator.WorldPosToChunkPos(player.transform.position);
-    // Debug.Log("WorldPosToChunkPos " + playerPosition);
     StartCoroutine(RecursiveBuildWorld(playerPosition.x, playerPosition.y, radius));
   }
 
@@ -114,9 +115,9 @@ public class WorldManager : MonoBehaviour
     yield break;
   }
 
-  IEnumerator RenderChunk(int x, int y, TileData[,] tiles)
+  IEnumerator RenderChunk(int x, int y, TileData[,] tiles, bool rerender = false)
   {
-    if (renderedChunks.Contains(new Vector2Int(x, y)))
+    if (renderedChunks.Contains(new Vector2Int(x, y)) && !rerender)
     {
       yield break;
     }
@@ -166,44 +167,48 @@ public class WorldManager : MonoBehaviour
     yield break;
   }
 
-  // public bool HasTileAt(Vector3 pos)
-  // {
-  //   return collisionTilemap.GetTile(Vector3Int.FloorToInt(pos)) != null || glowTilemap;
-  // }
+  public bool HasTileAt(Vector3 pos)
+  {
+    return GetTileAt(pos) != null;
+  }
 
-  // public TileData GetTileAt(Vector3 pos)
-  // {
-  //   var point = Vec3ToVec2Int(pos);
-  //   TileData tile;
-  //   if (!tiles.TryGetValue(point, out tile))
-  //   {
-  //     return null;
-  //   }
-  //   return tile;
-  // }
+  public TileData GetTileAt(Vector3 pos)
+  {
+    var chunkPoint = WorldGenerator.WorldPosToChunkPos(pos);
+    var blockPointInChunk = WorldGenerator.WorldPosToPosInChunk(Vec3ToVec2Int(pos));
 
-  // public void SetTileAt(Vector3 pos, TileData tile)
-  // {
-  //   DeleteTileAt(pos);
-  //   tiles.Add(Vec3ToVec2Int(pos), tile);
+    if (chunkCenter)
+    {
+      game.GetEffectsManager().SpawnParticle(
+        Particle.Type.BLUE_ENERGY,
+        (new Vector3(chunkPoint.x, chunkPoint.y, 0) * WorldGenerator.CHUNK_SIZE) +
+        new Vector3(WorldGenerator.CHUNK_SIZE / 2, WorldGenerator.CHUNK_SIZE / 2)
+        );
+    }
 
-  //   switch (tile.tilemap)
-  //   {
-  //     case TileData.TilemapLayer.COLLISION:
-  //       collisionTilemap.SetTile(Vec3ToVec3Int(pos), TileData.CreateTile(tile));
-  //       break;
-  //     case TileData.TilemapLayer.GLOW:
-  //       glowTilemap.SetTile(Vec3ToVec3Int(pos), TileData.CreateTile(tile));
-  //       break;
-  //   }
-  // }
+    Chunk chunk;
+    if (!chunks.TryGetValue(chunkPoint, out chunk))
+    {
+      return null;
+    }
+    return chunk.tileData[blockPointInChunk.y, blockPointInChunk.x];
+  }
 
-  // public void DeleteTileAt(Vector3 pos)
-  // {
-  //   collisionTilemap.SetTile(Vec3ToVec3Int(pos), null);
-  //   glowTilemap.SetTile(Vec3ToVec3Int(pos), null);
-  //   tiles.Remove(Vec3ToVec2Int(pos));
-  // }
+  public void SetTileAt(Vector3 pos, TileData tile)
+  {
+    var chunkPoint = WorldGenerator.WorldPosToChunkPos(pos);
+
+    Chunk chunk;
+    if (!chunks.TryGetValue(chunkPoint, out chunk))
+    {
+      return;
+    }
+
+    var blockPointInChunk = WorldGenerator.WorldPosToPosInChunk(Vec3ToVec2Int(pos));
+    chunk.tileData[blockPointInChunk.y, blockPointInChunk.x] = tile;
+
+    StartCoroutine(RenderChunk(chunkPoint.x, chunkPoint.y, chunk.tileData, true));
+  }
 
   private Vector2Int Vec3ToVec2Int(Vector3 pos) => Vector2Int.FloorToInt(((Vector2)pos));
   private Vector3Int Vec3ToVec3Int(Vector3 pos) => Vector3Int.FloorToInt(pos);

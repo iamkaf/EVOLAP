@@ -73,5 +73,15 @@ public class WorldGenerator
     Mathf.FloorToInt((float)pos.y / (float)CHUNK_SIZE)
   );
 
-  private Vector2Int ChunkPosToWorldPos(Vector2Int blockPos, Vector2Int chunkPos) => chunkPos * CHUNK_SIZE + blockPos;
+  public static Vector2Int ChunkPosToWorldPos(Vector2Int blockPos, Vector2Int chunkPos) => chunkPos * CHUNK_SIZE + blockPos;
+  public static Vector2Int WorldPosToPosInChunk(Vector2Int worldPos)
+  {
+    var offset = ChunkSizedVector();
+    offset.x = Mathf.FloorToInt((float)worldPos.x / (float)CHUNK_SIZE) * CHUNK_SIZE;
+    offset.y = Mathf.FloorToInt((float)worldPos.y / (float)CHUNK_SIZE) * CHUNK_SIZE;
+    
+    return worldPos - offset;
+  }
+
+  public static Vector2Int ChunkSizedVector() => new Vector2Int(CHUNK_SIZE, CHUNK_SIZE);
 }

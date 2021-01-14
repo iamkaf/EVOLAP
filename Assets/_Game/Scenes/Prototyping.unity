@@ -1386,7 +1386,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1753573766, guid: 2572a0a195822f546b03bd5acf152268, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1308784276745258571, guid: 2572a0a195822f546b03bd5acf152268, type: 3}
       propertyPath: m_RootOrder
@@ -1443,7 +1443,7 @@ PrefabInstance:
     - target: {fileID: 7959459574646432402, guid: 2572a0a195822f546b03bd5acf152268, type: 3}
       propertyPath: tileToBuild
       value: 
-      objectReference: {fileID: 11400000, guid: 2c0d599d08062bf4c8ae5042461b947e, type: 2}
+      objectReference: {fileID: 11400000, guid: cc190e49f3be20d4fb4da65bf7bc315b, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2572a0a195822f546b03bd5acf152268, type: 3}
 --- !u!1001 &2334249347128900552
