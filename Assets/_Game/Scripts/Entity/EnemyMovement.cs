@@ -7,10 +7,15 @@ public class EnemyMovement : MovableEntity
   [SerializeField]
   private float viewDistance = 8f;
 
+  private PlayerMovement player;
+
+  void Awake()
+  {
+    player = GameObject.FindObjectOfType<PlayerMovement>();
+  }
+
   protected override Vector2 GetAxis()
   {
-    PlayerMovement player = GameObject.FindObjectOfType<PlayerMovement>();
-
     if (Utility.Vec2Distance(transform.position, player.transform.position) <= viewDistance)
     {
       return player.transform.position - transform.position;

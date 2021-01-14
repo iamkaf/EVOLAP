@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
   private AudioManager audioManager;
   private InputManager inputManager;
   private EffectsManager effectsManager;
-  private TilemapHelper tilemapHelper;
+  private WorldManager world;
 
   void Awake()
   {
@@ -26,9 +26,8 @@ public class GameManager : MonoBehaviour
     DontDestroyOnLoad(gameObject);
 
     audioManager = GameObject.FindObjectOfType<AudioManager>();
-    inputManager = GameObject.FindObjectOfType<InputManager>();
     effectsManager = GameObject.FindObjectOfType<EffectsManager>();
-    tilemapHelper = GetComponent<TilemapHelper>();
+    world = GameObject.FindObjectOfType<WorldManager>();
   }
 
   public AudioManager GetAudioManager()
@@ -36,18 +35,13 @@ public class GameManager : MonoBehaviour
     return audioManager;
   }
 
-  public InputManager GetInputManager()
-  {
-    return inputManager;
-  }
-
   public EffectsManager GetEffectsManager()
   {
     return effectsManager;
   }
 
-  public TilemapHelper GetTilemapHelper()
+  public WorldManager GetWorld()
   {
-    return tilemapHelper;
+    return world;
   }
 }

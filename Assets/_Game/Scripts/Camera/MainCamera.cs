@@ -15,7 +15,7 @@ public class MainCamera : MonoBehaviour
     }
   }
 
-  void Update()
+  void LateUpdate()
   {
     float interpolation = speed * Time.deltaTime;
 

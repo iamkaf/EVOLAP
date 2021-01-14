@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class EffectsManager : MonoBehaviour
 {
@@ -24,14 +26,24 @@ public class EffectsManager : MonoBehaviour
     DontDestroyOnLoad(gameObject);
   }
 
-  public void SpawnParticle(string particleName, Vector3 where)
+  public void SpawnParticle(Particle.Type particleType, Vector3 where)
   {
-    Particle particle = Array.Find(particles, arr => arr.name == particleName);
-    if (particle == null)
+    Particle particle = Array.Find(particles, arr => arr.particleType.Equals(particleType));
+    if (particle == null && !Particle.Type.NONE.Equals(particleType))
     {
-      Debug.LogWarning("Tried to spawn particle '" + particleName + "' but it doesn't exist.");
+      Debug.LogWarning("Tried to spawn particle '" + particleType + "' but it doesn't exist.");
       return;
     }
     Instantiate(particle.particle, where, Quaternion.identity);
+  }
+
+  public void ChangeBloom(Color color)
+  {
+    var profile = GameObject.FindObjectOfType<Volume>().profile;
+
+    if (profile.TryGet<Bloom>(out Bloom bloom))
+    {
+      bloom.tint.value = color;
+    }
   }
 }

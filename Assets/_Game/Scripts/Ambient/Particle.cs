@@ -6,6 +6,14 @@ using UnityEngine;
 [Serializable]
 public class Particle
 {
-  public string name;
+  public enum Type
+  {
+    NONE,
+    BLUE_ENERGY,
+    ORANGE_ENERGY,
+    BLOCK_BREAK,
+  }
+
+  [InspectorName("Type")] public Type particleType;
   public GameObject particle;
 }

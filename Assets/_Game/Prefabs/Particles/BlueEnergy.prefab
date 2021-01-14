@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2074397340519789922}
   - component: {fileID: 6456405200889464468}
   m_Layer: 0
-  m_Name: BlockBreakParticles
+  m_Name: BlueEnergy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -223,7 +223,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0, g: 0.8290973, b: 1, a: 1}
+      maxColor: {r: 0, g: 0.941309, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a325d53bd82028448c724ab0a8493e3, type: 3}
+  m_Name: EnergyWorld
+  m_EditorClassIdentifier: 
+  size: 256
+  noiseScale: 40
+  ambientColor: {r: 0, g: 0.6218536, b: 1, a: 0}
+  baseTile: {fileID: 11400000, guid: ae858dc1b84da16448f3cc5b107ea6b0, type: 2}
+  terrainTile: {fileID: 11400000, guid: 2c0d599d08062bf4c8ae5042461b947e, type: 2}
+  resourceTile: {fileID: 11400000, guid: c8cdc10bf17daee41a8c24484b5517af, type: 2}

@@ -44,5 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particles:
-  - name: BlockBreak
+  - particleType: 1
     particle: {fileID: 2074397340519789920, guid: 941348185b57f414d9cb788846ed8f8b, type: 3}
+  - particleType: 2
+    particle: {fileID: 2074397340519789920, guid: 8f53c26c283bad849b7ef2ce119896a4, type: 3}

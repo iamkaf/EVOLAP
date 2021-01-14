@@ -44,7 +44,7 @@ TagManager:
   - name: Collision Tiles
     uniqueID: 3326531321
     locked: 0
-  - name: Foreground
+  - name: Glow
     uniqueID: 3038378403
     locked: 0
   - name: Player
