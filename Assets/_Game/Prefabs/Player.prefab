@@ -256,8 +256,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d75974fbfcbc49f4ba712e47a48d087c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  health: 100
+  _name: Unnamed
+  _maxHealth: 100
   playerName: Hexy
 --- !u!114 &1308784276745258573
 MonoBehaviour:
@@ -284,9 +284,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e715a71632fcb4458d0c18730ce55e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileToBuild: {fileID: 11400000, guid: c69a76185761ac348aa93df49db99fe1, type: 2}
+  tileToBuild: 3
   buildCooldown: 0.5
-  blockBreakParticles: {fileID: 2074397340519789920, guid: 941348185b57f414d9cb788846ed8f8b, type: 3}
 --- !u!1 &1308784277871291418
 GameObject:
   m_ObjectHideFlags: 0

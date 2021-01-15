@@ -5,9 +5,9 @@ using UnityEngine;
 public class Chunk
 {
   private int _chunkSize;
-  public TileData[,] tileData;
+  public TileData.TileType[,] tileData;
 
-  public Chunk(int chunkSize, TileData[,] tileData)
+  public Chunk(int chunkSize, TileData.TileType[,] tileData)
   {
     _chunkSize = chunkSize;
     this.tileData = tileData;

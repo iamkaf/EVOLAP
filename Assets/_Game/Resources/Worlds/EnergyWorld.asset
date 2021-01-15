@@ -15,6 +15,6 @@ MonoBehaviour:
   size: 256
   noiseScale: 40
   ambientColor: {r: 0, g: 0.6218536, b: 1, a: 0}
-  baseTile: {fileID: 11400000, guid: ae858dc1b84da16448f3cc5b107ea6b0, type: 2}
-  terrainTile: {fileID: 11400000, guid: 2c0d599d08062bf4c8ae5042461b947e, type: 2}
-  resourceTile: {fileID: 11400000, guid: c8cdc10bf17daee41a8c24484b5517af, type: 2}
+  baseTile: 2
+  terrainTile: 1
+  resourceTile: 4

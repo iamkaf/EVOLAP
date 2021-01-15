@@ -5,26 +5,31 @@ using UnityEngine;
 
 public class TileDatabase : MonoBehaviour
 {
-  public enum TileType
+  private Dictionary<TileData.TileType, TileData> tiles = new Dictionary<TileData.TileType, TileData>();
+
+  private void Awake()
   {
-    AIR,
-    BLUE_TILE,
-    BLACK_TILE,
-    GREEN_TILE,
-    RED_TILE,
-    ORANGE_TILE,
+    // Finds all TileData scriptable objects. Those must be within a folder called Resources
+    // to be found. Then store them in a dictionary to be accessed later.
+    var tileData = Resources.FindObjectsOfTypeAll<TileData>();
+    foreach (var tile in tileData)
+    {
+      tiles.Add(tile.type, tile);
+    }
   }
 
-  [Serializable]
-  public class TileEntry {
-    public TileType type;
-    public TileData tile;
-  }
-
-  public TileEntry[] tiles;
-
-  public TileData GetTile(TileType type)
+  public TileData GetTile(TileData.TileType type)
   {
-    return Array.Find(tiles, arr => arr.type.Equals(type)).tile;
+    if (type.Equals(TileData.TileType.AIR))
+    {
+      return null;
+    }
+
+    TileData tile;
+    if (!tiles.TryGetValue(type, out tile))
+    {
+      Debug.LogWarning($"Tried to get tile {type} but it wasn't found.", this);
+    }
+    return tile;
   }
 }

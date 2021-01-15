@@ -46,10 +46,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   world: {fileID: 11400000, guid: ad34e3ae5a85e9b4cbf9ac3d5f78be7b, type: 2}
+  radius: 3
   baseTilemap: {fileID: 0}
   collisionTilemap: {fileID: 0}
   glowTilemap: {fileID: 0}
   debugging: 0
+  showChunkCenter: 0
 --- !u!114 &4048778061662045764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,3 +64,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e6e01c6bdd53034f80f82b70a23f072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tiles:
+  - type: 0
+    tile: {fileID: 0}
+  - type: 1
+    tile: {fileID: 11400000, guid: 2c0d599d08062bf4c8ae5042461b947e, type: 2}
+  - type: 2
+    tile: {fileID: 11400000, guid: 36437040d7be6fb4f93a35c4c9094a4e, type: 2}
+  - type: 3
+    tile: {fileID: 11400000, guid: c8cdc10bf17daee41a8c24484b5517af, type: 2}
+  - type: 4
+    tile: {fileID: 11400000, guid: 36de4cade20e88f47b2802819afb1dba, type: 2}
+  - type: 5
+    tile: {fileID: 11400000, guid: cc190e49f3be20d4fb4da65bf7bc315b, type: 2}

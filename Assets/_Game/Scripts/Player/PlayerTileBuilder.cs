@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 
 public class PlayerTileBuilder : MonoBehaviour
 {
-  [SerializeField] private TileData tileToBuild = null;
+  [SerializeField] private TileData.TileType tileToBuild;
   [SerializeField] private float buildCooldown = 3f;
 
   private Cooldown blockPlaceCooldown;
@@ -60,7 +60,7 @@ public class PlayerTileBuilder : MonoBehaviour
     TileData tile = game.GetWorld().GetTileAt(GetTarget());
     if (blockBreakCooldown.CanUse() && tile != null)
     {
-      game.GetWorld().SetTileAt(GetTarget(), null);
+      game.GetWorld().SetTileAt(GetTarget(), TileData.TileType.AIR);
       game.GetAudioManager().Play("BlockBreak");
       if (!Particle.Type.NONE.Equals(tile.particle))
       {

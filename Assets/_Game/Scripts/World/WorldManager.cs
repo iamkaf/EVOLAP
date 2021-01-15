@@ -10,27 +10,28 @@ public class WorldManager : MonoBehaviour
 {
   public static WorldManager instance;
 
+  public static event Action<Vector2Int, TileData.TileType> onBlockPlace = delegate { };
+  public static event Action<Vector2Int, TileData.TileType> onBlockBreak = delegate { };
+
   private GameManager game;
   private WorldGenerator worldGenerator;
-  private const int radius = 3;
+  private TileDatabase tileDatabase;
 
   [SerializeField] GameObject player;
   [SerializeField] WorldData world;
+  [SerializeField] [Range(1, 5)] int radius = 3;
 
   [SerializeField] Tilemap baseTilemap;
   [SerializeField] Tilemap collisionTilemap;
   [SerializeField] Tilemap glowTilemap;
 
-  [Header("Debugging")]
-  [SerializeField] bool debugging;
-  [SerializeField] bool chunkCenter;
-
   private ConcurrentDictionary<Vector2Int, Chunk> chunks;
   private HashSet<Vector2Int> renderedChunks;
   private Vector3 lastBuildPos;
 
-  // public delegate void WorldBuilt(int worldSize, int tileCount);
-  // public static event WorldBuilt OnWorldBuilt;
+  [Header("Debugging")]
+  [SerializeField] bool debugging;
+  [SerializeField] bool showChunkCenter;
 
   void Awake()
   {
@@ -47,6 +48,7 @@ public class WorldManager : MonoBehaviour
     DontDestroyOnLoad(gameObject);
 
     game = GameObject.FindObjectOfType<GameManager>();
+    tileDatabase = GetComponent<TileDatabase>();
   }
 
   void Start()
@@ -115,7 +117,7 @@ public class WorldManager : MonoBehaviour
     yield break;
   }
 
-  IEnumerator RenderChunk(int x, int y, TileData[,] tiles, bool rerender = false)
+  IEnumerator RenderChunk(int x, int y, TileData.TileType[,] tiles, bool rerender = false)
   {
     if (renderedChunks.Contains(new Vector2Int(x, y)) && !rerender)
     {
@@ -130,7 +132,7 @@ public class WorldManager : MonoBehaviour
       for (int localY = 0; localY < WorldGenerator.CHUNK_SIZE; localY++)
       {
 
-        TileData tileData = tiles[localX, localY];
+        TileData tileData = tileDatabase.GetTile(tiles[localX, localY]);
         Tile tile = TileData.CreateTile(tileData);
         if (TileData.TilemapLayer.COLLISION.Equals(tileData?.tilemap))
         {
@@ -158,12 +160,12 @@ public class WorldManager : MonoBehaviour
 
   IEnumerator BuildBackground()
   {
-    baseTilemap.SetTile(new Vector3Int(-world.size, -world.size, 0), TileData.CreateTile(world.baseTile));
-    baseTilemap.SetTile(new Vector3Int(-world.size, world.size, 0), TileData.CreateTile(world.baseTile));
-    baseTilemap.SetTile(new Vector3Int(world.size, -world.size, 0), TileData.CreateTile(world.baseTile));
-    baseTilemap.SetTile(new Vector3Int(world.size, world.size, 0), TileData.CreateTile(world.baseTile));
+    baseTilemap.SetTile(new Vector3Int(-world.size, -world.size, 0), TileData.CreateTile(tileDatabase.GetTile(world.baseTile)));
+    baseTilemap.SetTile(new Vector3Int(-world.size, world.size, 0), TileData.CreateTile(tileDatabase.GetTile(world.baseTile)));
+    baseTilemap.SetTile(new Vector3Int(world.size, -world.size, 0), TileData.CreateTile(tileDatabase.GetTile(world.baseTile)));
+    baseTilemap.SetTile(new Vector3Int(world.size, world.size, 0), TileData.CreateTile(tileDatabase.GetTile(world.baseTile)));
 
-    baseTilemap.FloodFill(Vector3Int.zero, TileData.CreateTile(world.baseTile));
+    baseTilemap.FloodFill(Vector3Int.zero, TileData.CreateTile(tileDatabase.GetTile(world.baseTile)));
     yield break;
   }
 
@@ -177,7 +179,7 @@ public class WorldManager : MonoBehaviour
     var chunkPoint = WorldGenerator.WorldPosToChunkPos(pos);
     var blockPointInChunk = WorldGenerator.WorldPosToPosInChunk(Vec3ToVec2Int(pos));
 
-    if (chunkCenter)
+    if (showChunkCenter)
     {
       game.GetEffectsManager().SpawnParticle(
         Particle.Type.BLUE_ENERGY,
@@ -191,10 +193,10 @@ public class WorldManager : MonoBehaviour
     {
       return null;
     }
-    return chunk.tileData[blockPointInChunk.y, blockPointInChunk.x];
+    return tileDatabase.GetTile(chunk.tileData[blockPointInChunk.y, blockPointInChunk.x]);
   }
 
-  public void SetTileAt(Vector3 pos, TileData tile)
+  public void SetTileAt(Vector3 pos, TileData.TileType tileType)
   {
     var chunkPoint = WorldGenerator.WorldPosToChunkPos(pos);
 
@@ -205,9 +207,14 @@ public class WorldManager : MonoBehaviour
     }
 
     var blockPointInChunk = WorldGenerator.WorldPosToPosInChunk(Vec3ToVec2Int(pos));
-    chunk.tileData[blockPointInChunk.y, blockPointInChunk.x] = tile;
+    chunk.tileData[blockPointInChunk.y, blockPointInChunk.x] = tileType;
 
     StartCoroutine(RenderChunk(chunkPoint.x, chunkPoint.y, chunk.tileData, true));
+
+    if (tileType.Equals(TileData.TileType.AIR))
+      onBlockBreak(Vec3ToVec2Int(pos), tileType);
+    else
+      onBlockPlace(Vec3ToVec2Int(pos), tileType);
   }
 
   private Vector2Int Vec3ToVec2Int(Vector3 pos) => Vector2Int.FloorToInt(((Vector2)pos));

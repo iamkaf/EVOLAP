@@ -34,7 +34,7 @@ public class WorldGenerator
     int startY = chunkY * CHUNK_SIZE;
     int endY = chunkY * CHUNK_SIZE + CHUNK_SIZE - 1;
 
-    TileData[,] tileData = new TileData[CHUNK_SIZE, CHUNK_SIZE];
+    TileData.TileType[,] tileData = new TileData.TileType[CHUNK_SIZE, CHUNK_SIZE];
     for (int x = 0; x < CHUNK_SIZE; x++)
     {
       for (int y = 0; y < CHUNK_SIZE; y++)
@@ -48,14 +48,14 @@ public class WorldGenerator
     return new Chunk(CHUNK_SIZE, tileData);
   }
 
-  private TileData GenerateTileAt(Vector2Int pos)
+  private TileData.TileType GenerateTileAt(Vector2Int pos)
   {
     float noiseValue = GetValue(pos);
 
     if (noiseValue > 0.66f) return world.resourceTile;
     if (noiseValue > 0.4f) return world.terrainTile;
 
-    return null;
+    return TileData.TileType.AIR;
   }
 
   private float GetValue(Vector2Int point)

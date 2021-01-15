@@ -9,7 +9,7 @@ public class WorldData : ScriptableObject
   [Range(15f, 100f)] public float noiseScale = 1;
   public Color ambientColor;
 
-  public TileData baseTile;
-  public TileData terrainTile;
-  public TileData resourceTile;
+  public TileData.TileType baseTile;
+  public TileData.TileType terrainTile;
+  public TileData.TileType resourceTile;
 }

@@ -9,13 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a631193e1261be34cbc6a89459cd70a2, type: 3}
-  m_Name: BlueTileData
+  m_Script: {fileID: 11500000, guid: 8a325d53bd82028448c724ab0a8493e3, type: 3}
+  m_Name: HellWorld
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 91589cfa3ca33264fbbaaf831d172e5d, type: 3}
-  color: {r: 1, g: 1, b: 1, a: 1}
-  particle: 0
-  hardness: 1
-  reflectivity: 1
-  luminosity: 1
-  tilemap: 0
+  size: 128
+  noiseScale: 100
+  ambientColor: {r: 1, g: 0, b: 0, a: 0}
+  baseTile: 3
+  terrainTile: 5
+  resourceTile: 6
