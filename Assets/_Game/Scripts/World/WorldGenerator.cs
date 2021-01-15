@@ -45,7 +45,7 @@ public class WorldGenerator
       }
     }
 
-    return new Chunk(CHUNK_SIZE, tileData);
+    return new Chunk(new Vector2Int(chunkX, chunkY), CHUNK_SIZE, tileData);
   }
 
   private TileData.TileType GenerateTileAt(Vector2Int pos)

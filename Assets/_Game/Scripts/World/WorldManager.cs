@@ -108,12 +108,17 @@ public class WorldManager : MonoBehaviour
   {
     // TODO: add saving and loading
     Chunk chunk;
-    if (!chunks.TryGetValue(new Vector2Int(x, y), out chunk))
+    Vector2Int chunkPos = new Vector2Int(x, y);
+    if (!chunks.TryGetValue(chunkPos, out chunk))
     {
-      chunk = worldGenerator.GenerateChunk(x, y);
+      chunk = Chunk.TryLoadFromFile(chunkPos, WorldGenerator.CHUNK_SIZE);
+      if (chunk == null)
+      {
+        chunk = worldGenerator.GenerateChunk(x, y);
+      }
       chunks.AddOrUpdate(new Vector2Int(x, y), chunk, (k, v) => v);
     }
-    StartCoroutine(RenderChunk(x, y, chunk.tileData));
+    StartCoroutine(RenderChunk(x, y, chunk.GetGrid()));
     yield break;
   }
 
@@ -193,7 +198,7 @@ public class WorldManager : MonoBehaviour
     {
       return null;
     }
-    return tileDatabase.GetTile(chunk.tileData[blockPointInChunk.y, blockPointInChunk.x]);
+    return tileDatabase.GetTile(chunk.GetTile(blockPointInChunk));
   }
 
   public void SetTileAt(Vector3 pos, TileData.TileType tileType)
@@ -207,14 +212,22 @@ public class WorldManager : MonoBehaviour
     }
 
     var blockPointInChunk = WorldGenerator.WorldPosToPosInChunk(Vec3ToVec2Int(pos));
-    chunk.tileData[blockPointInChunk.y, blockPointInChunk.x] = tileType;
+    chunk.SetTile(blockPointInChunk, tileType);
 
-    StartCoroutine(RenderChunk(chunkPoint.x, chunkPoint.y, chunk.tileData, true));
+    StartCoroutine(RenderChunk(chunkPoint.x, chunkPoint.y, chunk.GetGrid(), true));
 
     if (tileType.Equals(TileData.TileType.AIR))
       onBlockBreak(Vec3ToVec2Int(pos), tileType);
     else
       onBlockPlace(Vec3ToVec2Int(pos), tileType);
+  }
+
+  void OnDisable()
+  {
+    foreach (var c in chunks)
+    {
+      c.Value.Save();
+    }
   }
 
   private Vector2Int Vec3ToVec2Int(Vector3 pos) => Vector2Int.FloorToInt(((Vector2)pos));
