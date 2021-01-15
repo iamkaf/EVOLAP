@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/_Game/Input/PlayerControls.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/_Game/Scripts/Player/PlayerControls.inputactions'
 
 using System;
 using System.Collections;
@@ -54,6 +54,14 @@ public class @PlayerActionControls : IInputActionCollection, IDisposable
                     ""name"": ""Interact"",
                     ""type"": ""PassThrough"",
                     ""id"": ""bdab18aa-f175-4eac-8dba-d45606ecfb69"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Screenshot"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""174f9423-abc9-478b-bb10-1ed4bab2ae32"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -180,6 +188,17 @@ public class @PlayerActionControls : IInputActionCollection, IDisposable
                     ""action"": ""MoveVertical"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""291f4aa0-f91b-4bcd-8002-becc8c62b0f6"",
+                    ""path"": ""<Keyboard>/f12"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Screenshot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -193,6 +212,7 @@ public class @PlayerActionControls : IInputActionCollection, IDisposable
         m_Main_Break = m_Main.FindAction("Break", throwIfNotFound: true);
         m_Main_Place = m_Main.FindAction("Place", throwIfNotFound: true);
         m_Main_Interact = m_Main.FindAction("Interact", throwIfNotFound: true);
+        m_Main_Screenshot = m_Main.FindAction("Screenshot", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -247,6 +267,7 @@ public class @PlayerActionControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Main_Break;
     private readonly InputAction m_Main_Place;
     private readonly InputAction m_Main_Interact;
+    private readonly InputAction m_Main_Screenshot;
     public struct MainActions
     {
         private @PlayerActionControls m_Wrapper;
@@ -256,6 +277,7 @@ public class @PlayerActionControls : IInputActionCollection, IDisposable
         public InputAction @Break => m_Wrapper.m_Main_Break;
         public InputAction @Place => m_Wrapper.m_Main_Place;
         public InputAction @Interact => m_Wrapper.m_Main_Interact;
+        public InputAction @Screenshot => m_Wrapper.m_Main_Screenshot;
         public InputActionMap Get() { return m_Wrapper.m_Main; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -280,6 +302,9 @@ public class @PlayerActionControls : IInputActionCollection, IDisposable
                 @Interact.started -= m_Wrapper.m_MainActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnInteract;
+                @Screenshot.started -= m_Wrapper.m_MainActionsCallbackInterface.OnScreenshot;
+                @Screenshot.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnScreenshot;
+                @Screenshot.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnScreenshot;
             }
             m_Wrapper.m_MainActionsCallbackInterface = instance;
             if (instance != null)
@@ -299,6 +324,9 @@ public class @PlayerActionControls : IInputActionCollection, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @Screenshot.started += instance.OnScreenshot;
+                @Screenshot.performed += instance.OnScreenshot;
+                @Screenshot.canceled += instance.OnScreenshot;
             }
         }
     }
@@ -310,5 +338,6 @@ public class @PlayerActionControls : IInputActionCollection, IDisposable
         void OnBreak(InputAction.CallbackContext context);
         void OnPlace(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnScreenshot(InputAction.CallbackContext context);
     }
 }

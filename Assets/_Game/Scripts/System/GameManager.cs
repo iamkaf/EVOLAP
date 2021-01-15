@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
   private InputManager inputManager;
   private EffectsManager effectsManager;
   private WorldManager world;
+  private TileDatabase tileDatabase;
 
   void Awake()
   {
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
     audioManager = GameObject.FindObjectOfType<AudioManager>();
     effectsManager = GameObject.FindObjectOfType<EffectsManager>();
     world = GameObject.FindObjectOfType<WorldManager>();
+    tileDatabase = GameObject.FindObjectOfType<TileDatabase>();
   }
 
   public AudioManager GetAudioManager()
@@ -43,5 +45,10 @@ public class GameManager : MonoBehaviour
   public WorldManager GetWorld()
   {
     return world;
+  }
+
+  public TileDatabase GetTileDatabase()
+  {
+    return tileDatabase;
   }
 }

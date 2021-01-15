@@ -38,6 +38,11 @@ public class PlayerTileBuilder : MonoBehaviour
     playerActionControls.Disable();
   }
 
+    void Update()
+  {
+    BlockBreak();
+  }
+
   void BlockPlace()
   {
     if (blockPlaceCooldown.CanUse() && !game.GetWorld().HasTileAt(GetTarget()))
@@ -46,11 +51,6 @@ public class PlayerTileBuilder : MonoBehaviour
       game.GetAudioManager().Play("BlockPlace");
       blockPlaceCooldown.Used();
     }
-  }
-
-  void Update()
-  {
-    BlockBreak();
   }
 
   private void BlockBreak()
@@ -62,14 +62,6 @@ public class PlayerTileBuilder : MonoBehaviour
     {
       game.GetWorld().SetTileAt(GetTarget(), TileData.TileType.AIR);
       game.GetAudioManager().Play("BlockBreak");
-      if (!Particle.Type.NONE.Equals(tile.particle))
-      {
-        game.GetEffectsManager().SpawnParticle(tile.particle, GetTarget());
-      }
-      else
-      {
-        game.GetEffectsManager().SpawnParticle(Particle.Type.BLOCK_BREAK, GetTarget());
-      }
       blockBreakCooldown.Used();
     }
   }

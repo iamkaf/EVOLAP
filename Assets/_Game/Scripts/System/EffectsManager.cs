@@ -11,6 +11,8 @@ public class EffectsManager : MonoBehaviour
 
   public static EffectsManager instance;
 
+  private GameManager game;
+
   void Awake()
   {
     if (instance == null)
@@ -24,6 +26,25 @@ public class EffectsManager : MonoBehaviour
     }
 
     DontDestroyOnLoad(gameObject);
+    game = GameObject.FindObjectOfType<GameManager>();
+  }
+
+  void Start()
+  {
+    WorldManager.onBlockBreak += OnBlockBreak;
+  }
+
+  private void OnBlockBreak(Vector2Int pos, TileData.TileType tileType)
+  {
+    var tile = game.GetTileDatabase().GetTile(tileType);
+    Vector3 where = new Vector3((float)pos.x + 0.5f, (float)pos.y + 0.5f, 0);
+
+    if (!Particle.Type.NONE.Equals(tile.particle))
+    {
+      SpawnParticle(tile.particle, where);
+      return;
+    }
+    SpawnParticle(Particle.Type.BLOCK_BREAK, where);
   }
 
   public void SpawnParticle(Particle.Type particleType, Vector3 where)

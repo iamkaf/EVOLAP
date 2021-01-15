@@ -212,12 +212,13 @@ public class WorldManager : MonoBehaviour
     }
 
     var blockPointInChunk = WorldGenerator.WorldPosToPosInChunk(Vec3ToVec2Int(pos));
+    var tileBroken = chunk.GetTile(blockPointInChunk);
     chunk.SetTile(blockPointInChunk, tileType);
 
     StartCoroutine(RenderChunk(chunkPoint.x, chunkPoint.y, chunk.GetGrid(), true));
 
     if (tileType.Equals(TileData.TileType.AIR))
-      onBlockBreak(Vec3ToVec2Int(pos), tileType);
+      onBlockBreak(Vec3ToVec2Int(pos), tileBroken);
     else
       onBlockPlace(Vec3ToVec2Int(pos), tileType);
   }
