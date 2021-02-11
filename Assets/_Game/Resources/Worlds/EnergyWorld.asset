@@ -16,5 +16,5 @@ MonoBehaviour:
   noiseScale: 40
   ambientColor: {r: 0, g: 0.6218536, b: 1, a: 0}
   baseTile: 2
-  terrainTile: 1
+  terrainTile: 3
   resourceTile: 4

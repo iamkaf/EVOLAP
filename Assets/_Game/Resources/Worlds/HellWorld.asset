@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a325d53bd82028448c724ab0a8493e3, type: 3}
   m_Name: HellWorld
   m_EditorClassIdentifier: 
-  size: 128
-  noiseScale: 100
+  size: 256
+  noiseScale: 50
   ambientColor: {r: 1, g: 0, b: 0, a: 0}
   baseTile: 3
   terrainTile: 5
