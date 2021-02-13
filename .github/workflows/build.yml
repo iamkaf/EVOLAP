@@ -6,6 +6,7 @@ on:
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+  PROJECT_NAME: EVOLAP
 
 jobs:
   buildForWindows32:
@@ -30,7 +31,7 @@ jobs:
           versioning: Semantic
       - uses: actions/upload-artifact@v1
         with:
-          name: Windows x32 ${{ steps.unityBuild.outputs.buildVersion }}
+          name: ${{ env.PROJECT_NAME }} ${{ steps.unityBuild.outputs.buildVersion }} Windows x32
           path: build/StandaloneWindows
   buildForWindows64:
     name: Unity 2020.2.3f1 - Windows64
@@ -54,7 +55,7 @@ jobs:
           versioning: Semantic
       - uses: actions/upload-artifact@v1
         with:
-          name: Windows x64 ${{ steps.unityBuild.outputs.buildVersion }}
+          name: ${{ env.PROJECT_NAME }} ${{ steps.unityBuild.outputs.buildVersion }} Windows x64
           path: build/StandaloneWindows64
   buildForOSX:
     name: Unity 2020.2.3f1 - OSX
@@ -78,7 +79,7 @@ jobs:
           versioning: Semantic
       - uses: actions/upload-artifact@v1
         with:
-          name: OSX ${{ steps.unityBuild.outputs.buildVersion }}
+          name: ${{ env.PROJECT_NAME }} ${{ steps.unityBuild.outputs.buildVersion }} OSX
           path: build/StandaloneOSX
   buildForLinux:
     name: Unity 2020.2.3f1 - Linux64
@@ -102,7 +103,7 @@ jobs:
           versioning: Semantic
       - uses: actions/upload-artifact@v1
         with:
-          name: Linux64 ${{ steps.unityBuild.outputs.buildVersion }}
+          name: ${{ env.PROJECT_NAME }} ${{ steps.unityBuild.outputs.buildVersion }} Linux64
           path: build/StandaloneLinux64
   buildForWebGL:
     name: Unity 2020.2.3f1 - WebGL
@@ -126,5 +127,5 @@ jobs:
           versioning: Semantic
       - uses: actions/upload-artifact@v1
         with:
-          name: WebGL ${{ steps.unityBuild.outputs.buildVersion }}
+          name: ${{ env.PROJECT_NAME }} ${{ steps.unityBuild.outputs.buildVersion }} WebGL
           path: build/WebGL
