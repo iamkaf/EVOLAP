@@ -38,7 +38,8 @@ jobs:
           projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
+          versioning: Semantic
       - uses: actions/upload-artifact@v1
         with:
-          name: Build
-          path: build
+          name: ${{ matrix.targetPlatform }}
+          path: build/${{ matrix.targetPlatform }}
