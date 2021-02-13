@@ -6,11 +6,10 @@ on:
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-  UNITY_VERSION: 2020.2.3f1
 
 jobs:
   buildForWindows32:
-    name: Windows32 - ${{ env.UNITY_VERSION }}
+    name: Windows32 - 2020.2.3f1
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -25,8 +24,8 @@ jobs:
       - uses: webbertakken/unity-builder@v2.0-alpha-6
         id: unityBuild
         with:
-          projectPath: '.'
-          unityVersion: ${{ env.UNITY_VERSION }}
+          projectPath: .
+          unityVersion: 2020.2.3f1
           targetPlatform: StandaloneWindows
           versioning: Semantic
       - uses: actions/upload-artifact@v1
@@ -34,7 +33,7 @@ jobs:
           name: Windows x32 ${{ steps.unityBuild.outputs.buildVersion }}
           path: build/StandaloneWindows
   buildForWindows64:
-    name: Windows64 - ${{ env.UNITY_VERSION }}
+    name: Windows64 - 2020.2.3f1
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -50,7 +49,7 @@ jobs:
         id: unityBuild
         with:
           projectPath: '.'
-          unityVersion: ${{ env.UNITY_VERSION }}
+          unityVersion: 2020.2.3f1
           targetPlatform: StandaloneWindows64
           versioning: Semantic
       - uses: actions/upload-artifact@v1
@@ -58,7 +57,7 @@ jobs:
           name: Windows x64 ${{ steps.unityBuild.outputs.buildVersion }}
           path: build/StandaloneWindows64
   buildForOSX:
-    name: OSX - ${{ env.UNITY_VERSION }}
+    name: OSX - 2020.2.3f1
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -74,7 +73,7 @@ jobs:
         id: unityBuild
         with:
           projectPath: '.'
-          unityVersion: ${{ env.UNITY_VERSION }}
+          unityVersion: 2020.2.3f1
           targetPlatform: StandaloneOSX
           versioning: Semantic
       - uses: actions/upload-artifact@v1
@@ -82,7 +81,7 @@ jobs:
           name: OSX ${{ steps.unityBuild.outputs.buildVersion }}
           path: build/StandaloneOSX
   buildForLinux:
-    name: Linux64 - ${{ env.UNITY_VERSION }}
+    name: Linux64 - 2020.2.3f1
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -98,7 +97,7 @@ jobs:
         id: unityBuild
         with:
           projectPath: '.'
-          unityVersion: ${{ env.UNITY_VERSION }}
+          unityVersion: 2020.2.3f1
           targetPlatform: StandaloneLinux64
           versioning: Semantic
       - uses: actions/upload-artifact@v1
@@ -106,7 +105,7 @@ jobs:
           name: Linux64 ${{ steps.unityBuild.outputs.buildVersion }}
           path: build/StandaloneLinux64
   buildForWebGL:
-    name: WebGL - ${{ env.UNITY_VERSION }}
+    name: WebGL - 2020.2.3f1
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -122,7 +121,7 @@ jobs:
         id: unityBuild
         with:
           projectPath: '.'
-          unityVersion: ${{ env.UNITY_VERSION }}
+          unityVersion: 2020.2.3f1
           targetPlatform: WebGL
           versioning: Semantic
       - uses: actions/upload-artifact@v1
