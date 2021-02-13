@@ -28,10 +28,9 @@ jobs:
           lfs: true
       - uses: actions/cache@v1.1.0
         with:
-          path: /github/workspace/Library
-          key: Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}
+          path: ${{ GITHUB_WORKSPACE }}/Library
+          key: Library-${{ matrix.targetPlatform }}
           restore-keys: |
-            Library-${{ matrix.projectPath }}-
             Library-
       - uses: webbertakken/unity-builder@v2.0-alpha-6
         with:
