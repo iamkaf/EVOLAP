@@ -1,4 +1,4 @@
-name: Build project
+name: 'Build Project 🔧'
 
 on:
   pull_request: {}
@@ -9,7 +9,7 @@ env:
 
 jobs:
   buildForWindows32:
-    name: Windows32 - 2020.2.3f1
+    name: Unity 2020.2.3f1 - Windows32
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -33,7 +33,7 @@ jobs:
           name: Windows x32 ${{ steps.unityBuild.outputs.buildVersion }}
           path: build/StandaloneWindows
   buildForWindows64:
-    name: Windows64 - 2020.2.3f1
+    name: Unity 2020.2.3f1 - Windows64
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -57,7 +57,7 @@ jobs:
           name: Windows x64 ${{ steps.unityBuild.outputs.buildVersion }}
           path: build/StandaloneWindows64
   buildForOSX:
-    name: OSX - 2020.2.3f1
+    name: Unity 2020.2.3f1 - OSX
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -81,7 +81,7 @@ jobs:
           name: OSX ${{ steps.unityBuild.outputs.buildVersion }}
           path: build/StandaloneOSX
   buildForLinux:
-    name: Linux64 - 2020.2.3f1
+    name: Unity 2020.2.3f1 - Linux64
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -105,7 +105,7 @@ jobs:
           name: Linux64 ${{ steps.unityBuild.outputs.buildVersion }}
           path: build/StandaloneLinux64
   buildForWebGL:
-    name: WebGL - 2020.2.3f1
+    name: Unity 2020.2.3f1 - WebGL
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
