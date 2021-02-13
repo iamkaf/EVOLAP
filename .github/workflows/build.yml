@@ -6,39 +6,126 @@ on:
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+  UNITY_VERSION: 2020.2.3f1
 
 jobs:
-  buildForSomePlatforms:
-    name: Build for ${{ matrix.targetPlatform }} on version ${{ matrix.unityVersion }}
+  buildForWindows32:
+    name: Windows32 - ${{ env.UNITY_VERSION }}
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        unityVersion:
-          - 2020.2.3f1
-        targetPlatform:
-          # - StandaloneOSX # Build a macOS standalone (Intel 64-bit).
-          - StandaloneWindows # Build a Windows standalone.
-          # - StandaloneWindows64 # Build a Windows 64-bit standalone.
-          # - StandaloneLinux64 # Build a Linux 64-bit standalone.
-          # - WebGL # WebGL.
     steps:
       - uses: actions/checkout@v2
         with:
           lfs: true
       - uses: actions/cache@v1.1.0
         with:
-          path: /Library
-          key: Library-Cache-${{ matrix.targetPlatform }}
+          path: ./Library
+          key: Library-Cache-StandaloneWindows
           restore-keys: |
             Library-
       - uses: webbertakken/unity-builder@v2.0-alpha-6
+        id: unityBuild
         with:
-          projectPath: ${{ matrix.projectPath }}
-          unityVersion: ${{ matrix.unityVersion }}
-          targetPlatform: ${{ matrix.targetPlatform }}
+          projectPath: '.'
+          unityVersion: ${{ env.UNITY_VERSION }}
+          targetPlatform: StandaloneWindows
           versioning: Semantic
       - uses: actions/upload-artifact@v1
         with:
-          name: ${{ matrix.targetPlatform }}
-          path: build/${{ matrix.targetPlatform }}
+          name: Windows x32 ${{ steps.unityBuild.outputs.buildVersion }}
+          path: build/StandaloneWindows
+  buildForWindows64:
+    name: Windows64 - ${{ env.UNITY_VERSION }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          lfs: true
+      - uses: actions/cache@v1.1.0
+        with:
+          path: ./Library
+          key: Library-Cache-StandaloneWindows64
+          restore-keys: |
+            Library-Cache-
+      - uses: webbertakken/unity-builder@v2.0-alpha-6
+        id: unityBuild
+        with:
+          projectPath: '.'
+          unityVersion: ${{ env.UNITY_VERSION }}
+          targetPlatform: StandaloneWindows64
+          versioning: Semantic
+      - uses: actions/upload-artifact@v1
+        with:
+          name: Windows x64 ${{ steps.unityBuild.outputs.buildVersion }}
+          path: build/StandaloneWindows64
+  buildForOSX:
+    name: OSX - ${{ env.UNITY_VERSION }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          lfs: true
+      - uses: actions/cache@v1.1.0
+        with:
+          path: ./Library
+          key: Library-Cache-StandaloneOSX
+          restore-keys: |
+            Library-Cache-
+      - uses: webbertakken/unity-builder@v2.0-alpha-6
+        id: unityBuild
+        with:
+          projectPath: '.'
+          unityVersion: ${{ env.UNITY_VERSION }}
+          targetPlatform: StandaloneOSX
+          versioning: Semantic
+      - uses: actions/upload-artifact@v1
+        with:
+          name: OSX ${{ steps.unityBuild.outputs.buildVersion }}
+          path: build/StandaloneOSX
+  buildForLinux:
+    name: Linux64 - ${{ env.UNITY_VERSION }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          lfs: true
+      - uses: actions/cache@v1.1.0
+        with:
+          path: ./Library
+          key: Library-Cache-StandaloneLinux64
+          restore-keys: |
+            Library-Cache-
+      - uses: webbertakken/unity-builder@v2.0-alpha-6
+        id: unityBuild
+        with:
+          projectPath: '.'
+          unityVersion: ${{ env.UNITY_VERSION }}
+          targetPlatform: StandaloneLinux64
+          versioning: Semantic
+      - uses: actions/upload-artifact@v1
+        with:
+          name: Linux64 ${{ steps.unityBuild.outputs.buildVersion }}
+          path: build/StandaloneLinux64
+  buildForWebGL:
+    name: WebGL - ${{ env.UNITY_VERSION }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          lfs: true
+      - uses: actions/cache@v1.1.0
+        with:
+          path: ./Library
+          key: Library-Cache-WebGL
+          restore-keys: |
+            Library-Cache-
+      - uses: webbertakken/unity-builder@v2.0-alpha-6
+        id: unityBuild
+        with:
+          projectPath: '.'
+          unityVersion: ${{ env.UNITY_VERSION }}
+          targetPlatform: WebGL
+          versioning: Semantic
+      - uses: actions/upload-artifact@v1
+        with:
+          name: WebGL ${{ steps.unityBuild.outputs.buildVersion }}
+          path: build/WebGL
