@@ -5,16 +5,15 @@ using UnityEngine;
 
 public class TileDatabase : MonoBehaviour
 {
-  private Dictionary<TileData.TileType, TileData> tiles = new Dictionary<TileData.TileType, TileData>();
+  [SerializeField] private TileData[] tiles;
+
+  private Dictionary<TileData.TileType, TileData> db = new Dictionary<TileData.TileType, TileData>();
 
   private void Awake()
   {
-    // Finds all TileData scriptable objects. Those must be within a folder called Resources
-    // to be found. Then store them in a dictionary to be accessed later.
-    var tileData = Resources.FindObjectsOfTypeAll<TileData>();
-    foreach (var tile in tileData)
+    foreach (TileData tile in tiles)
     {
-      tiles.Add(tile.type, tile);
+      db.Add(tile.type, tile);
     }
   }
 
@@ -24,9 +23,9 @@ public class TileDatabase : MonoBehaviour
     {
       return null;
     }
-
+    
     TileData tile;
-    if (!tiles.TryGetValue(type, out tile))
+    if (!db.TryGetValue(type, out tile))
     {
       Debug.LogWarning($"Tried to get tile {type} but it wasn't found.", this);
     }
