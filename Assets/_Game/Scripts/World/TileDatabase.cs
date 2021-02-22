@@ -7,13 +7,13 @@ public class TileDatabase : MonoBehaviour
 {
   [SerializeField] private TileData[] tiles;
 
-  private Dictionary<TileData.TileType, TileData> db = new Dictionary<TileData.TileType, TileData>();
+  private readonly Dictionary<TileData.TileType, TileData> _db = new Dictionary<TileData.TileType, TileData>();
 
   private void Awake()
   {
     foreach (TileData tile in tiles)
     {
-      db.Add(tile.type, tile);
+      _db.Add(tile.type, tile);
     }
   }
 
@@ -25,7 +25,7 @@ public class TileDatabase : MonoBehaviour
     }
     
     TileData tile;
-    if (!db.TryGetValue(type, out tile))
+    if (!_db.TryGetValue(type, out tile))
     {
       Debug.LogWarning($"Tried to get tile {type} but it wasn't found.", this);
     }
